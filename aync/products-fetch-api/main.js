@@ -10,4 +10,25 @@ function fetchData() {
         }
         return response.json();
     })
+    .then(data => handleResults(data))
+    .catch(error => console.log(error.message));
+}
+
+function handleResults(products) {
+    if(!products){
+        return
+    }
+    buildProducts(products);
+}
+
+function buildProducts(products){
+    const transformProducts = products.map(({name: proName, price, type}) =>{
+        return` <strong>Name: </strong> ${proName} <br>
+                <strong>Price: </strong> ${price}<br>
+                <strong>Type:</strong> ${type}<br>
+                <hr>`
+        
+    })
+
+    $('#productsList').html(transformProducts.join(''));//edo kanei thn evosh kai ta bazei sto html san string
 }
