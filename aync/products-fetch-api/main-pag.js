@@ -24,7 +24,7 @@ $(function () {
 function renderItems(products, page){
     $('prod-list').empty()//thn katharizoume prota
     let startIndex = (page - 1) * itemsPerPage
-    let endIndex = Mathn.min(startIndex + itemsPerPage, products.length)
+    let endIndex = Math.min(startIndex + itemsPerPage, products.length)
     let productsHTML = products.slice(startIndex, endIndex)
     .map(product => `<div><strong>Name: </strong>${product.name}</div>
         <div><strong>Price: </strong>${product.price}</div>
@@ -41,15 +41,31 @@ function renderPagination(products){
         const activeClass = i === currentPage ? 'active' : ''
         $('#pagination').append(`<li><a href="#" class="${activeClass}" data-page="${i}">${i}</a></li>`)
     }
-    $('#pagination').html(activeClass)
-    if(currentPage > 1){
-        $('#prev').removeAttr('disabled')
-    }else{
-        $('#prev').attr('disabled', 'disabled')
-    }
-    if(currentPage < totalPages){
-        $('#next').removeAttr('disabled')
-    }else{
-        $('#next').attr('disabled', 'disabled')
-    }
+    
+}
+
+
+//Promise AJAX call
+function fetchData(){
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', 'https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json')
+        xhr.timeout = 5000
+        xhr.ontimeout = () => onApiError()
+       xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4){
+                if(xhr.status === 200){
+                    let products = JSON.parse(xhr.responseText)
+                    resolve(products)
+                }else{
+                    reject(new Error('faild to load data'))
+                }
+            }
+        }
+        xhr.send()
+    })
+}
+
+function onApiError(){
+    console.log('API Error')
 }
