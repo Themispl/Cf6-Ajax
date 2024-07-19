@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+        <span>{{message}}</span>
+        <!-- v-bind:href  auto einai to apo kato-->
+         <br>
+        <a :href="link" target="_blank">Visti us</a>
+        
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                    message:'Hello Vue',
+                    link: 'https://www.aueb.gr/'
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>
