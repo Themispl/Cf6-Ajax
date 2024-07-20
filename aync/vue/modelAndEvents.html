@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+       <input v-model="firstname" type="text" placeholder="Insert Firstname" name="" id="">
+        <button @click="printFirstname">Print Firstname</button>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                    firstname: ''
+                }
+            },
+            methods: {
+                printFirstname: function(){
+                    console.log(this.firstname)
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+</body>
+</html>
